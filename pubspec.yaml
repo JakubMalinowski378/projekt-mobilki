@@ -34,6 +34,9 @@ dependencies:
   # Sensors
   sensors_plus: ^4.0.2
   
+  # Audio
+  audioplayers: ^6.1.0
+  
   # Notifications
   flutter_local_notifications: ^18.0.1
   
@@ -50,3 +53,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  
+  assets:
+    - assets/audio/music.mp3
