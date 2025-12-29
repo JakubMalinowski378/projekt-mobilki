@@ -1,0 +1,52 @@
+name: projekt_mobilki
+description: "Personal Finance Tracking App"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  
+  # State Management
+  provider: ^6.1.1
+  
+  # Database
+  drift: ^2.14.1
+  sqlite3_flutter_libs: ^0.5.18
+  sqlite3: ^2.9.4
+  path_provider: ^2.1.1
+  path: ^1.8.3
+  
+  # API & HTTP
+  http: ^1.1.2
+  
+  # Charts
+  fl_chart: ^0.66.0
+  
+  # Biometric Auth
+  local_auth: ^2.1.8
+  
+  # Sensors
+  sensors_plus: ^4.0.2
+  
+  # Notifications
+  flutter_local_notifications: ^18.0.1
+  
+  # UI
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  drift_dev: ^2.14.0
+  build_runner: ^2.4.7
+
+flutter:
+  uses-material-design: true
+  generate: true
