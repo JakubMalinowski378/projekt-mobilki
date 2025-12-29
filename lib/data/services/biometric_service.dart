@@ -1,11 +1,14 @@
 import 'package:local_auth/local_auth.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 
 class BiometricService {
   final LocalAuthentication _localAuth = LocalAuthentication();
 
   Future<bool> isBiometricAvailable() async {
     try {
-      return await _localAuth.canCheckBiometrics;
+      final bool canAuthenticateWithBiometrics = await _localAuth.canCheckBiometrics;
+      final bool canAuthenticate = canAuthenticateWithBiometrics || await _localAuth.isDeviceSupported();
+      return canAuthenticate;
     } catch (e) {
       return false;
     }
@@ -28,7 +31,12 @@ class BiometricService {
           biometricOnly: false,
         ),
       );
-    } catch (e) {
+    } on Exception catch (e) {
+      if (e.toString().contains(auth_error.notAvailable) ||
+          e.toString().contains(auth_error.notEnrolled)) {
+        // Biometric is not available or not enrolled
+        return false;
+      }
       return false;
     }
   }
