@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'providers/settings_provider.dart';
 import 'data/database/database.dart';
 import 'data/services/biometric_service.dart';
 import 'data/services/currency_service.dart';
@@ -59,37 +60,42 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => CurrencyProvider(database, currencyService),
         ),
+        ChangeNotifierProvider(
+          create: (_) => SettingsProvider(),
+        ),
         Provider.value(value: biometricService),
       ],
-      child: MaterialApp(
-        title: 'Finance Tracker',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
-            brightness: Brightness.light,
+      child: Consumer<SettingsProvider>(
+        builder: (context, settings, _) => MaterialApp(
+          title: 'Finance Tracker',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blue,
+              brightness: Brightness.light,
+            ),
+            useMaterial3: true,
           ),
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
-            brightness: Brightness.dark,
+          darkTheme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blue,
+              brightness: Brightness.dark,
+            ),
+            useMaterial3: true,
           ),
-          useMaterial3: true,
+          themeMode: settings.isDarkModeOverride ? ThemeMode.dark : ThemeMode.system,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en'),
+            Locale('pl'),
+          ],
+          home: AuthScreen(biometricService: biometricService),
         ),
-        themeMode: ThemeMode.system,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en'),
-          Locale('pl'),
-        ],
-        home: AuthScreen(biometricService: biometricService),
       ),
     );
   }

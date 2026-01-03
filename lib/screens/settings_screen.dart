@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
+import '../providers/settings_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -14,14 +16,14 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ListTile(
-            leading: const Icon(Icons.dark_mode),
+          SwitchListTile(
+            secondary: const Icon(Icons.dark_mode),
             title: Text(l10n.darkMode),
-            subtitle: const Text('System default'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              // TODO: Implement theme switching
-            },
+            subtitle: Consumer<SettingsProvider>(
+              builder: (context, settings, _) => Text(settings.isDarkModeOverride ? 'Forced dark' : 'System default'),
+            ),
+            value: Provider.of<SettingsProvider>(context).isDarkModeOverride,
+            onChanged: (value) => Provider.of<SettingsProvider>(context, listen: false).setDarkModeOverride(value),
           ),
           ListTile(
             leading: const Icon(Icons.language),
