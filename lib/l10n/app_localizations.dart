@@ -421,6 +421,23 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Healthcare'**
   String get catHealthcare;
+
+  /// No description provided for @transactionAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Added'**
+  String get transactionAdded;
+
+  /// No description provided for @newTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'{type}: {category} - {amount} {currency}'**
+  String newTransaction(
+    Object amount,
+    Object category,
+    Object currency,
+    Object type,
+  );
 }
 
 class _AppLocalizationsDelegate

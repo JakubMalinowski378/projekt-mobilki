@@ -53,5 +53,7 @@
   "catShopping": "Zakupy",
   "catEntertainment": "Rozrywka",
   "catBillsUtilities": "Rachunki",
-  "catHealthcare": "Zdrowie"
+  "catHealthcare": "Zdrowie",
+  "transactionAdded": "Dodano transakcję",
+  "newTransaction": "{type}: {category} - {amount} {currency}"
 }

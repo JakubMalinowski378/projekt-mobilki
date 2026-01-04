@@ -74,14 +74,16 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.notifications),
-            title: Text(l10n.notifications),
-            trailing: Switch(
-              value: true,
-              onChanged: (value) {
-                // TODO: Implement notification settings
-              },
+          Consumer<SettingsProvider>(
+            builder: (context, settings, _) => ListTile(
+              leading: const Icon(Icons.notifications),
+              title: Text(l10n.notifications),
+              trailing: Switch(
+                value: settings.notificationsEnabled,
+                onChanged: (value) {
+                  settings.setNotificationsEnabled(value);
+                },
+              ),
             ),
           ),
           ListTile(

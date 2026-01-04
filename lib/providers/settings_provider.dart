@@ -5,6 +5,7 @@ class SettingsProvider with ChangeNotifier {
   static const _darkOverrideKey = 'dark_mode_override';
   static const _localeKey = 'locale';
   static const _currencyKey = 'target_currency';
+  static const _notificationsKey = 'notifications_enabled';
 
   bool _isDarkModeOverride = false;
   bool get isDarkModeOverride => _isDarkModeOverride;
@@ -14,6 +15,9 @@ class SettingsProvider with ChangeNotifier {
 
   String _targetCurrency = 'PLN';
   String get targetCurrency => _targetCurrency;
+
+  bool _notificationsEnabled = true;
+  bool get notificationsEnabled => _notificationsEnabled;
 
   SettingsProvider() {
     _load();
@@ -30,6 +34,7 @@ class SettingsProvider with ChangeNotifier {
       }
 
       _targetCurrency = prefs.getString(_currencyKey) ?? 'PLN';
+      _notificationsEnabled = prefs.getBool(_notificationsKey) ?? true;
       
       notifyListeners();
     } catch (_) {
@@ -68,6 +73,17 @@ class SettingsProvider with ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_currencyKey, currency);
+    } catch (_) {
+      // ignore
+    }
+    notifyListeners();
+  }
+
+  Future<void> setNotificationsEnabled(bool value) async {
+    _notificationsEnabled = value;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(_notificationsKey, value);
     } catch (_) {
       // ignore
     }

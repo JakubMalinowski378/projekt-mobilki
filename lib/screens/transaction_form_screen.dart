@@ -6,9 +6,11 @@ import 'package:drift/drift.dart' as drift;
 
 import '../providers/transaction_provider.dart';
 import '../providers/category_provider.dart';
+import '../providers/settings_provider.dart';
 import '../data/database/database.dart';
 import '../data/database/tables.dart';
 import '../l10n/app_localizations.dart';
+import '../data/services/notification_service.dart';
 
 import '../utils/category_utils.dart';
 
@@ -91,6 +93,27 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
         type: _type,
         description: description,
       );
+
+      // Trigger notification if enabled
+      final settingsProvider = context.read<SettingsProvider>();
+      if (settingsProvider.notificationsEnabled && mounted) {
+        final category = context.read<CategoryProvider>().categories
+            .firstWhere((c) => c.id == _selectedCategoryId)
+            .name;
+        
+        final l10n = AppLocalizations.of(context)!;
+        final typeStr = _type == TransactionType.income ? l10n.income : l10n.expense;
+        
+        await NotificationService().showTransactionNotification(
+          title: l10n.transactionAdded,
+          body: l10n.newTransaction(
+            amount.toStringAsFixed(2),
+            getLocalizedCategoryName(context, category),
+            _selectedCurrency,
+            typeStr,
+          ),
+        );
+      }
     } else {
       await transactionProvider.updateTransaction(
         widget.transaction!.copyWith(

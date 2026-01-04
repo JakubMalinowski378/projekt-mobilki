@@ -53,5 +53,7 @@
   "catShopping": "Shopping",
   "catEntertainment": "Entertainment",
   "catBillsUtilities": "Bills & Utilities",
-  "catHealthcare": "Healthcare"
+  "catHealthcare": "Healthcare",
+  "transactionAdded": "Transaction Added",
+  "newTransaction": "{type}: {category} - {amount} {currency}"
 }

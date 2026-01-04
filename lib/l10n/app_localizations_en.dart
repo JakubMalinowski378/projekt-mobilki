@@ -169,4 +169,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get catHealthcare => 'Healthcare';
+
+  @override
+  String get transactionAdded => 'Transaction Added';
+
+  @override
+  String newTransaction(
+    Object amount,
+    Object category,
+    Object currency,
+    Object type,
+  ) {
+    return '$type: $category - $amount $currency';
+  }
 }

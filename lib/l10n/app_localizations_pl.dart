@@ -169,4 +169,17 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get catHealthcare => 'Zdrowie';
+
+  @override
+  String get transactionAdded => 'Dodano transakcję';
+
+  @override
+  String newTransaction(
+    Object amount,
+    Object category,
+    Object currency,
+    Object type,
+  ) {
+    return '$type: $category - $amount $currency';
+  }
 }

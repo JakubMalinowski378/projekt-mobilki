@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
@@ -5,52 +6,73 @@ class NotificationService {
   factory NotificationService() => _instance;
   NotificationService._internal();
 
-  final FlutterLocalNotificationsPlugin _notifications = 
-      FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _notificationsPlugin = FlutterLocalNotificationsPlugin();
 
   Future<void> initialize() async {
-    const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const iosSettings = DarwinInitializationSettings();
-    
-    const settings = InitializationSettings(
-      android: androidSettings,
-      iOS: iosSettings,
-    );
+    try {
+      const AndroidInitializationSettings initializationSettingsAndroid =
+          AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    await _notifications.initialize(settings);
+      const DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true,
+      );
+
+      const InitializationSettings initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsDarwin,
+      );
+
+      final initialized = await _notificationsPlugin.initialize(
+        initializationSettings,
+        onDidReceiveNotificationResponse: (details) {
+          debugPrint('Notification clicked: ${details.payload}');
+        },
+      );
+      
+      debugPrint('Notifications initialized: $initialized');
+
+      // Request permissions for Android 13+
+      final platform = _notificationsPlugin.resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>();
+      if (platform != null) {
+        final granted = await platform.requestNotificationsPermission();
+        debugPrint('Android notifications permission: $granted');
+      }
+    } catch (e) {
+      debugPrint('Error initializing notifications: $e');
+    }
   }
 
-  Future<void> showNotification({
-    required int id,
+  Future<void> showTransactionNotification({
     required String title,
     required String body,
   }) async {
-    const androidDetails = AndroidNotificationDetails(
-      'finance_tracker_channel',
-      'Finance Tracker',
-      channelDescription: 'Notifications for finance tracking',
-      importance: Importance.high,
-      priority: Priority.high,
-    );
+    try {
+      const AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+        'transaction_channel',
+        'Transactions',
+        channelDescription: 'Notifications for new transactions',
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'ticker',
+      );
 
-    const iosDetails = DarwinNotificationDetails();
+      const NotificationDetails notificationDetails = NotificationDetails(
+        android: androidNotificationDetails,
+        iOS: DarwinNotificationDetails(),
+      );
 
-    const details = NotificationDetails(
-      android: androidDetails,
-      iOS: iosDetails,
-    );
-
-    await _notifications.show(id, title, body, details);
-  }
-
-  Future<void> scheduleNotification({
-    required int id,
-    required String title,
-    required String body,
-    required DateTime scheduledTime,
-  }) async {
-    // Note: For full scheduling support, you would need additional plugins
-    // This is a basic implementation
-    await showNotification(id: id, title: title, body: body);
+      await _notificationsPlugin.show(
+        0,
+        title,
+        body,
+        notificationDetails,
+      );
+      debugPrint('Notification shown: $title - $body');
+    } catch (e) {
+      debugPrint('Error showing notification: $e');
+    }
   }
 }
