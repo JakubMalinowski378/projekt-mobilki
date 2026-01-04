@@ -4,12 +4,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SettingsProvider with ChangeNotifier {
   static const _darkOverrideKey = 'dark_mode_override';
   static const _localeKey = 'locale';
+  static const _currencyKey = 'target_currency';
 
   bool _isDarkModeOverride = false;
   bool get isDarkModeOverride => _isDarkModeOverride;
 
   Locale? _locale;
   Locale? get locale => _locale;
+
+  String _targetCurrency = 'PLN';
+  String get targetCurrency => _targetCurrency;
 
   SettingsProvider() {
     _load();
@@ -24,6 +28,8 @@ class SettingsProvider with ChangeNotifier {
       if (localeCode != null) {
         _locale = Locale(localeCode);
       }
+
+      _targetCurrency = prefs.getString(_currencyKey) ?? 'PLN';
       
       notifyListeners();
     } catch (_) {
@@ -51,6 +57,17 @@ class SettingsProvider with ChangeNotifier {
       } else {
         await prefs.remove(_localeKey);
       }
+    } catch (_) {
+      // ignore
+    }
+    notifyListeners();
+  }
+
+  Future<void> setTargetCurrency(String currency) async {
+    _targetCurrency = currency;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_currencyKey, currency);
     } catch (_) {
       // ignore
     }

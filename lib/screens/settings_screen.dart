@@ -52,6 +52,28 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
           ),
+          Consumer<SettingsProvider>(
+            builder: (context, settings, _) => ListTile(
+              leading: const Icon(Icons.currency_exchange),
+              title: Text(l10n.defaultCurrency),
+              trailing: DropdownButton<String>(
+                value: settings.targetCurrency,
+                underline: Container(),
+                items: ['PLN', 'USD', 'EUR', 'GBP', 'JPY']
+                    .map((currency) => DropdownMenuItem(
+                          value: currency,
+                          child: Text(currency),
+                        ))
+                    .toList(),
+                onChanged: (String? newCurrency) {
+                  if (newCurrency != null) {
+                    Provider.of<SettingsProvider>(context, listen: false)
+                        .setTargetCurrency(newCurrency);
+                  }
+                },
+              ),
+            ),
+          ),
           ListTile(
             leading: const Icon(Icons.notifications),
             title: Text(l10n.notifications),

@@ -32,6 +32,7 @@
   "totalExpense": "Total Expenses",
   "balance": "Balance",
   "incomeByCategory": "Income by Category",
+  "defaultCurrency": "Default Currency",
   "expensesByCategory": "Expenses by Category",
   "incomeVsExpense": "Income vs Expense",
   "selectDateRange": "Select Date Range",

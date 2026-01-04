@@ -105,6 +105,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get incomeByCategory => 'Przychody wg Kategorii';
 
   @override
+  String get defaultCurrency => 'Domyślna Waluta';
+
+  @override
   String get expensesByCategory => 'Wydatki wg Kategorii';
 
   @override

@@ -17,6 +17,7 @@ class CurrencyProvider extends ChangeNotifier {
   DateTime? get lastUpdate => _lastUpdate;
 
   Future<void> updateRates() async {
+    if (_isLoading) return;
     _isLoading = true;
     notifyListeners();
 

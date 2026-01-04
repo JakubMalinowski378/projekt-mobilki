@@ -290,6 +290,12 @@ abstract class AppLocalizations {
   /// **'Income by Category'**
   String get incomeByCategory;
 
+  /// No description provided for @defaultCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Default Currency'**
+  String get defaultCurrency;
+
   /// No description provided for @expensesByCategory.
   ///
   /// In en, this message translates to:

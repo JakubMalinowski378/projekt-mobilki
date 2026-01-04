@@ -105,6 +105,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get incomeByCategory => 'Income by Category';
 
   @override
+  String get defaultCurrency => 'Default Currency';
+
+  @override
   String get expensesByCategory => 'Expenses by Category';
 
   @override

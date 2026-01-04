@@ -182,6 +182,11 @@ LazyDatabase _openConnection() {
 class CategoryStats {
   final String categoryName;
   final double total;
+  final Map<String, double> originalAmounts;
 
-  CategoryStats({required this.categoryName, required this.total});
+  CategoryStats({
+    required this.categoryName, 
+    required this.total,
+    this.originalAmounts = const {},
+  });
 }

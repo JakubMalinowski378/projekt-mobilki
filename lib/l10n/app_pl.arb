@@ -32,6 +32,7 @@
   "totalExpense": "Łączne Wydatki",
   "balance": "Bilans",
   "incomeByCategory": "Przychody wg Kategorii",
+  "defaultCurrency": "Domyślna Waluta",
   "expensesByCategory": "Wydatki wg Kategorii",
   "incomeVsExpense": "Przychody vs Wydatki",
   "selectDateRange": "Wybierz Zakres Dat",

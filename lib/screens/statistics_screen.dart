@@ -5,6 +5,8 @@ import 'package:fl_chart/fl_chart.dart';
 
 import '../data/database/database.dart';
 import '../providers/statistics_provider.dart';
+import '../providers/settings_provider.dart';
+import '../providers/currency_provider.dart';
 import '../l10n/app_localizations.dart';
 
 import '../utils/category_utils.dart';
@@ -27,11 +29,15 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   }
 
   void _loadStats() {
-    final provider = context.read<StatisticsProvider>();
+    final statsProvider = context.read<StatisticsProvider>();
+    final currencyProvider = context.read<CurrencyProvider>();
+    final settingsProvider = context.read<SettingsProvider>();
+    final targetCurrency = settingsProvider.targetCurrency;
+
     if (_showMonthly) {
-      provider.loadMonthlyStats(_selectedMonth);
+      statsProvider.loadMonthlyStats(_selectedMonth, currencyProvider, targetCurrency);
     } else {
-      provider.loadYearlyStats(_selectedMonth.year);
+      statsProvider.loadYearlyStats(_selectedMonth.year, currencyProvider, targetCurrency);
     }
   }
 
@@ -93,7 +99,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
             children: [
               _buildPeriodSelector(),
               const SizedBox(height: 24),
-              _buildSummaryCards(context, provider, l10n),
+              _buildSummaryCards(context, provider, l10n, Provider.of<SettingsProvider>(context).targetCurrency),
               const SizedBox(height: 24),
               if (provider.incomeByCategory.isNotEmpty) ...[
                 _buildChartSection(
@@ -102,6 +108,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   stats: provider.incomeByCategory,
                   total: provider.totalIncome,
                   baseColors: [Colors.green, Colors.teal, Colors.lime, Colors.lightGreen],
+                  targetCurrency: Provider.of<SettingsProvider>(context).targetCurrency,
                 ),
                 const SizedBox(height: 24),
               ],
@@ -112,6 +119,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   stats: provider.expensesByCategory,
                   total: provider.totalExpense,
                   baseColors: [Colors.red, Colors.orange, Colors.pink, Colors.purple],
+                  targetCurrency: Provider.of<SettingsProvider>(context).targetCurrency,
                 ),
               ],
             ],
@@ -147,6 +155,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     BuildContext context,
     StatisticsProvider provider,
     AppLocalizations l10n,
+    String targetCurrency,
   ) {
     return Row(
       children: [
@@ -165,7 +174,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '\$${provider.totalIncome.toStringAsFixed(2)}',
+                    '${provider.totalIncome.toStringAsFixed(2)} $targetCurrency',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
@@ -192,7 +201,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '\$${provider.totalExpense.toStringAsFixed(2)}',
+                    '${provider.totalExpense.toStringAsFixed(2)} $targetCurrency',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
@@ -213,6 +222,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     required List<CategoryStats> stats,
     required double total,
     required List<MaterialColor> baseColors,
+    required String targetCurrency,
   }) {
     // Generate variations of base colors if needed
     final colors = List<Color>.generate(
@@ -227,7 +237,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            Text( // ... (retaining rest of widget tree)
               title,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
@@ -285,10 +295,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        '\$${stat.total.toStringAsFixed(2)}',
+                      ...stat.originalAmounts.entries.map((e) => Text(
+                        '${e.value.toStringAsFixed(2)} ${e.key}',
                         style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                      )),
                       Text(
                         '${percentage.toStringAsFixed(1)}%',
                         style: Theme.of(context).textTheme.bodySmall,
