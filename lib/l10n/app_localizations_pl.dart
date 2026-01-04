@@ -102,6 +102,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get balance => 'Bilans';
 
   @override
+  String get incomeByCategory => 'Przychody wg Kategorii';
+
+  @override
   String get expensesByCategory => 'Wydatki wg Kategorii';
 
   @override

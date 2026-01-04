@@ -120,11 +120,12 @@ class AppDatabase extends _$AppDatabase {
     return result.read(transactions.amount.sum()) ?? 0.0;
   }
 
-  Future<List<CategoryStats>> getExpensesByCategory(DateTime start, DateTime end) async {
+  Future<List<CategoryStats>> getStatsByCategory(
+      TransactionType type, DateTime start, DateTime end) async {
     final query = select(transactions).join([
       innerJoin(categories, categories.id.equalsExp(transactions.categoryId))
     ])
-      ..where(transactions.type.equals(TransactionType.expense.name))
+      ..where(transactions.type.equals(type.name))
       ..where(transactions.date.isBetweenValues(start, end));
 
     final result = await query.get();

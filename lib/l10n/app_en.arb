@@ -31,6 +31,7 @@
   "totalIncome": "Total Income",
   "totalExpense": "Total Expenses",
   "balance": "Balance",
+  "incomeByCategory": "Income by Category",
   "expensesByCategory": "Expenses by Category",
   "incomeVsExpense": "Income vs Expense",
   "selectDateRange": "Select Date Range",

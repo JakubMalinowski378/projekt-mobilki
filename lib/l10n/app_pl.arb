@@ -31,6 +31,7 @@
   "totalIncome": "Łączny Przychód",
   "totalExpense": "Łączne Wydatki",
   "balance": "Bilans",
+  "incomeByCategory": "Przychody wg Kategorii",
   "expensesByCategory": "Wydatki wg Kategorii",
   "incomeVsExpense": "Przychody vs Wydatki",
   "selectDateRange": "Wybierz Zakres Dat",

@@ -284,6 +284,12 @@ abstract class AppLocalizations {
   /// **'Balance'**
   String get balance;
 
+  /// No description provided for @incomeByCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Income by Category'**
+  String get incomeByCategory;
+
   /// No description provided for @expensesByCategory.
   ///
   /// In en, this message translates to:

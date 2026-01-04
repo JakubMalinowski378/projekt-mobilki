@@ -10,6 +10,8 @@ import '../data/database/database.dart';
 import '../data/database/tables.dart';
 import '../l10n/app_localizations.dart';
 
+import '../utils/category_utils.dart';
+
 class TransactionFormScreen extends StatefulWidget {
   final Transaction? transaction;
 
@@ -232,7 +234,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
                   items: categories.map((category) {
                     return DropdownMenuItem(
                       value: category.id,
-                      child: Text(category.name),
+                      child: Text(getLocalizedCategoryName(context, category.name)),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -252,7 +254,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.calendar_today),
               title: Text(l10n.date),
-              subtitle: Text(DateFormat.yMMMd().format(_selectedDate)),
+              subtitle: Text(DateFormat.yMMMd(Localizations.localeOf(context).toString()).format(_selectedDate)),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => _selectDate(context),
             ),

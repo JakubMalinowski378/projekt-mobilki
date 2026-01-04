@@ -8,6 +8,7 @@ class StatisticsProvider extends ChangeNotifier {
   double _totalIncome = 0;
   double _totalExpense = 0;
   List<CategoryStats> _expensesByCategory = [];
+  List<CategoryStats> _incomeByCategory = [];
   bool _isLoading = false;
 
   StatisticsProvider(this._database);
@@ -16,6 +17,7 @@ class StatisticsProvider extends ChangeNotifier {
   double get totalExpense => _totalExpense;
   double get balance => _totalIncome - _totalExpense;
   List<CategoryStats> get expensesByCategory => _expensesByCategory;
+  List<CategoryStats> get incomeByCategory => _incomeByCategory;
   bool get isLoading => _isLoading;
 
   Future<void> loadMonthlyStats(DateTime month) async {
@@ -50,7 +52,17 @@ class StatisticsProvider extends ChangeNotifier {
       end,
     );
 
-    _expensesByCategory = await _database.getExpensesByCategory(start, end);
+    _expensesByCategory = await _database.getStatsByCategory(
+      TransactionType.expense,
+      start,
+      end
+    );
+
+    _incomeByCategory = await _database.getStatsByCategory(
+      TransactionType.income,
+      start,
+      end
+    );
 
     _isLoading = false;
     notifyListeners();
