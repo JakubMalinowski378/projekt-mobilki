@@ -42,5 +42,14 @@
   "notifications": "Notifications",
   "shakeToAdd": "Shake to add transaction",
   "darkMode": "Dark Mode",
-  "language": "Language"
+  "language": "Language",
+  "catSalary": "Salary",
+  "catBusiness": "Business",
+  "catInvestments": "Investments",
+  "catFoodDining": "Food & Dining",
+  "catTransportation": "Transportation",
+  "catShopping": "Shopping",
+  "catEntertainment": "Entertainment",
+  "catBillsUtilities": "Bills & Utilities",
+  "catHealthcare": "Healthcare"
 }

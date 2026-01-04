@@ -42,5 +42,14 @@
   "notifications": "Powiadomienia",
   "shakeToAdd": "Potrząśnij aby dodać transakcję",
   "darkMode": "Tryb Ciemny",
-  "language": "Język"
+  "language": "Język",
+  "catSalary": "Wynagrodzenie",
+  "catBusiness": "Biznes",
+  "catInvestments": "Inwestycje",
+  "catFoodDining": "Jedzenie",
+  "catTransportation": "Transport",
+  "catShopping": "Zakupy",
+  "catEntertainment": "Rozrywka",
+  "catBillsUtilities": "Rachunki",
+  "catHealthcare": "Zdrowie"
 }

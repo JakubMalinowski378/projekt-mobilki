@@ -25,14 +25,32 @@ class SettingsScreen extends StatelessWidget {
             value: Provider.of<SettingsProvider>(context).isDarkModeOverride,
             onChanged: (value) => Provider.of<SettingsProvider>(context, listen: false).setDarkModeOverride(value),
           ),
-          ListTile(
-            leading: const Icon(Icons.language),
-            title: Text(l10n.language),
-            subtitle: const Text('English'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              // TODO: Implement language switching
-            },
+          Consumer<SettingsProvider>(
+            builder: (context, settings, _) => ListTile(
+              leading: const Icon(Icons.language),
+              title: Text(l10n.language),
+              trailing: DropdownButton<Locale>(
+                value: settings.locale,
+                underline: Container(),
+                items: const [
+                  DropdownMenuItem(
+                    value: null,
+                    child: Text('System'),
+                  ),
+                  DropdownMenuItem(
+                    value: Locale('pl'),
+                    child: Text('Polski'),
+                  ),
+                  DropdownMenuItem(
+                    value: Locale('en'),
+                    child: Text('English'),
+                  ),
+                ],
+                onChanged: (Locale? newLocale) {
+                  Provider.of<SettingsProvider>(context, listen: false).setLocale(newLocale);
+                },
+              ),
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.notifications),

@@ -6,6 +6,8 @@ import 'package:fl_chart/fl_chart.dart';
 import '../providers/statistics_provider.dart';
 import '../l10n/app_localizations.dart';
 
+import '../utils/category_utils.dart';
+
 class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({super.key});
 
@@ -114,7 +116,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
         ),
         Text(
           _showMonthly
-              ? DateFormat.yMMMM().format(_selectedMonth)
+              ? DateFormat.yMMMM(Localizations.localeOf(context).toString()).format(_selectedMonth)
               : _selectedMonth.year.toString(),
           style: Theme.of(context).textTheme.titleLarge,
         ),
@@ -276,7 +278,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
               backgroundColor: colors[index % colors.length],
               radius: 8,
             ),
-            title: Text(stat.categoryName),
+            title: Text(getLocalizedCategoryName(context, stat.categoryName)),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,

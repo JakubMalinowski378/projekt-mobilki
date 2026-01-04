@@ -6,6 +6,8 @@ import '../data/database/tables.dart';
 import 'category_form_screen.dart';
 import '../l10n/app_localizations.dart';
 
+import '../utils/category_utils.dart';
+
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
 
@@ -85,7 +87,7 @@ class _CategoryList extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                title: Text(category.name),
+                title: Text(getLocalizedCategoryName(context, category.name)),
                 trailing: IconButton(
                   icon: const Icon(Icons.edit),
                   onPressed: () {

@@ -355,6 +355,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Language'**
   String get language;
+
+  /// No description provided for @catSalary.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary'**
+  String get catSalary;
+
+  /// No description provided for @catBusiness.
+  ///
+  /// In en, this message translates to:
+  /// **'Business'**
+  String get catBusiness;
+
+  /// No description provided for @catInvestments.
+  ///
+  /// In en, this message translates to:
+  /// **'Investments'**
+  String get catInvestments;
+
+  /// No description provided for @catFoodDining.
+  ///
+  /// In en, this message translates to:
+  /// **'Food & Dining'**
+  String get catFoodDining;
+
+  /// No description provided for @catTransportation.
+  ///
+  /// In en, this message translates to:
+  /// **'Transportation'**
+  String get catTransportation;
+
+  /// No description provided for @catShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get catShopping;
+
+  /// No description provided for @catEntertainment.
+  ///
+  /// In en, this message translates to:
+  /// **'Entertainment'**
+  String get catEntertainment;
+
+  /// No description provided for @catBillsUtilities.
+  ///
+  /// In en, this message translates to:
+  /// **'Bills & Utilities'**
+  String get catBillsUtilities;
+
+  /// No description provided for @catHealthcare.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthcare'**
+  String get catHealthcare;
 }
 
 class _AppLocalizationsDelegate

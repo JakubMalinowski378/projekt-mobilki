@@ -84,6 +84,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           themeMode: settings.isDarkModeOverride ? ThemeMode.dark : ThemeMode.system,
+          locale: settings.locale,
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

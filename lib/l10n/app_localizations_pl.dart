@@ -136,4 +136,31 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get language => 'Język';
+
+  @override
+  String get catSalary => 'Wynagrodzenie';
+
+  @override
+  String get catBusiness => 'Biznes';
+
+  @override
+  String get catInvestments => 'Inwestycje';
+
+  @override
+  String get catFoodDining => 'Jedzenie';
+
+  @override
+  String get catTransportation => 'Transport';
+
+  @override
+  String get catShopping => 'Zakupy';
+
+  @override
+  String get catEntertainment => 'Rozrywka';
+
+  @override
+  String get catBillsUtilities => 'Rachunki';
+
+  @override
+  String get catHealthcare => 'Zdrowie';
 }

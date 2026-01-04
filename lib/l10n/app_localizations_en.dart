@@ -136,4 +136,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get language => 'Language';
+
+  @override
+  String get catSalary => 'Salary';
+
+  @override
+  String get catBusiness => 'Business';
+
+  @override
+  String get catInvestments => 'Investments';
+
+  @override
+  String get catFoodDining => 'Food & Dining';
+
+  @override
+  String get catTransportation => 'Transportation';
+
+  @override
+  String get catShopping => 'Shopping';
+
+  @override
+  String get catEntertainment => 'Entertainment';
+
+  @override
+  String get catBillsUtilities => 'Bills & Utilities';
+
+  @override
+  String get catHealthcare => 'Healthcare';
 }

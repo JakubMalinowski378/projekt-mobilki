@@ -7,6 +7,8 @@ import '../providers/category_provider.dart';
 import 'transaction_form_screen.dart';
 import '../l10n/app_localizations.dart';
 
+import '../utils/category_utils.dart';
+
 class TransactionsScreen extends StatelessWidget {
   const TransactionsScreen({super.key});
 
@@ -43,7 +45,7 @@ class TransactionsScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                   Icon(
                     Icons.receipt_long_outlined,
                     size: 64,
                     color: Theme.of(context).colorScheme.primary.withAlpha(128),
@@ -85,14 +87,14 @@ class TransactionsScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  title: Text(category.name),
+                  title: Text(getLocalizedCategoryName(context, category.name)),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (transaction.description != null)
                         Text(transaction.description!),
                       Text(
-                        DateFormat.yMMMd().format(transaction.date),
+                        DateFormat.yMMMd(Localizations.localeOf(context).toString()).format(transaction.date),
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
