@@ -129,20 +129,6 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.info),
-            title: const Text('About'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              showAboutDialog(
-                context: context,
-                applicationName: l10n.appTitle,
-                applicationVersion: '1.0.0',
-                applicationLegalese: '© 2025',
-              );
-            },
-          ),
         ],
       ),
     );
