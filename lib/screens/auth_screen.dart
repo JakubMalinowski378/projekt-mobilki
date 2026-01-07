@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../data/services/biometric_service.dart';
+import '../providers/settings_provider.dart';
 import 'home_screen.dart';
 import '../l10n/app_localizations.dart';
 
@@ -24,10 +26,22 @@ class _AuthScreenState extends State<AuthScreen> {
   Future<void> _authenticate() async {
     setState(() => _isAuthenticating = true);
 
+    // Give SettingsProvider time to load from SharedPreferences
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    final settingsProvider = context.read<SettingsProvider>();
+    if (!settingsProvider.biometricEnabled) {
+      if (mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+        );
+      }
+      return;
+    }
+
     final isAvailable = await widget.biometricService.isBiometricAvailable();
-    
+
     if (!isAvailable) {
-      // If biometric is not available, skip to home
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const HomeScreen()),
@@ -37,20 +51,20 @@ class _AuthScreenState extends State<AuthScreen> {
     }
 
     final authenticated = await widget.biometricService.authenticate();
-    
+
     setState(() => _isAuthenticating = false);
 
     if (authenticated && mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const HomeScreen()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
       body: Center(
         child: Column(

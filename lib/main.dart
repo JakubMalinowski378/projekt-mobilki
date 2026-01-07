@@ -12,6 +12,7 @@ import 'providers/category_provider.dart';
 import 'providers/statistics_provider.dart';
 import 'providers/currency_provider.dart';
 import 'screens/auth_screen.dart';
+import 'screens/home_screen.dart';
 import 'l10n/app_localizations.dart';
 
 void main() async {
@@ -86,7 +87,9 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: const [Locale('en'), Locale('pl')],
-          home: AuthScreen(biometricService: biometricService),
+          home: settings.biometricEnabled
+              ? AuthScreen(biometricService: biometricService)
+              : const HomeScreen(),
         ),
       ),
     );

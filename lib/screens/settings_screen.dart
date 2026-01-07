@@ -105,14 +105,16 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.fingerprint),
-            title: Text(l10n.biometricAuth),
-            trailing: Switch(
-              value: true,
-              onChanged: (value) {
-                // TODO: Implement biometric settings
-              },
+          Consumer<SettingsProvider>(
+            builder: (context, settings, _) => ListTile(
+              leading: const Icon(Icons.fingerprint),
+              title: Text(l10n.biometricAuth),
+              trailing: Switch(
+                value: settings.biometricEnabled,
+                onChanged: (value) {
+                  settings.setBiometricEnabled(value);
+                },
+              ),
             ),
           ),
           const Divider(),

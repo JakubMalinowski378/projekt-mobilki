@@ -6,6 +6,7 @@ class SettingsProvider with ChangeNotifier {
   static const _localeKey = 'locale';
   static const _currencyKey = 'target_currency';
   static const _notificationsKey = 'notifications_enabled';
+  static const _biometricKey = 'biometric_enabled';
 
   ThemeMode _themeMode = ThemeMode.system;
   ThemeMode get themeMode => _themeMode;
@@ -18,6 +19,9 @@ class SettingsProvider with ChangeNotifier {
 
   bool _notificationsEnabled = true;
   bool get notificationsEnabled => _notificationsEnabled;
+
+  bool _biometricEnabled = true;
+  bool get biometricEnabled => _biometricEnabled;
 
   SettingsProvider() {
     _load();
@@ -41,6 +45,7 @@ class SettingsProvider with ChangeNotifier {
 
       _targetCurrency = prefs.getString(_currencyKey) ?? 'PLN';
       _notificationsEnabled = prefs.getBool(_notificationsKey) ?? true;
+      _biometricEnabled = prefs.getBool(_biometricKey) ?? true;
 
       notifyListeners();
     } catch (_) {
@@ -90,6 +95,17 @@ class SettingsProvider with ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool(_notificationsKey, value);
+    } catch (_) {
+      // ignore
+    }
+    notifyListeners();
+  }
+
+  Future<void> setBiometricEnabled(bool value) async {
+    _biometricEnabled = value;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(_biometricKey, value);
     } catch (_) {
       // ignore
     }
