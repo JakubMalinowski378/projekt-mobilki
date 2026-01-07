@@ -107,6 +107,18 @@ class SettingsScreen extends StatelessWidget {
           ),
           Consumer<SettingsProvider>(
             builder: (context, settings, _) => ListTile(
+              leading: const Icon(Icons.animation),
+              title: Text(l10n.shakeAnimation),
+              trailing: Switch(
+                value: settings.shakeAnimationEnabled,
+                onChanged: (value) {
+                  settings.setShakeAnimationEnabled(value);
+                },
+              ),
+            ),
+          ),
+          Consumer<SettingsProvider>(
+            builder: (context, settings, _) => ListTile(
               leading: const Icon(Icons.fingerprint),
               title: Text(l10n.biometricAuth),
               trailing: Switch(

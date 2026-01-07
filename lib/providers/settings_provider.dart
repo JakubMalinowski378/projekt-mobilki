@@ -7,6 +7,7 @@ class SettingsProvider with ChangeNotifier {
   static const _currencyKey = 'target_currency';
   static const _notificationsKey = 'notifications_enabled';
   static const _biometricKey = 'biometric_enabled';
+  static const _shakeAnimationKey = 'shake_animation_enabled';
 
   ThemeMode _themeMode = ThemeMode.system;
   ThemeMode get themeMode => _themeMode;
@@ -22,6 +23,9 @@ class SettingsProvider with ChangeNotifier {
 
   bool _biometricEnabled = true;
   bool get biometricEnabled => _biometricEnabled;
+
+  bool _shakeAnimationEnabled = true;
+  bool get shakeAnimationEnabled => _shakeAnimationEnabled;
 
   SettingsProvider() {
     _load();
@@ -46,6 +50,7 @@ class SettingsProvider with ChangeNotifier {
       _targetCurrency = prefs.getString(_currencyKey) ?? 'PLN';
       _notificationsEnabled = prefs.getBool(_notificationsKey) ?? true;
       _biometricEnabled = prefs.getBool(_biometricKey) ?? true;
+      _shakeAnimationEnabled = prefs.getBool(_shakeAnimationKey) ?? true;
 
       notifyListeners();
     } catch (_) {
@@ -106,6 +111,17 @@ class SettingsProvider with ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool(_biometricKey, value);
+    } catch (_) {
+      // ignore
+    }
+    notifyListeners();
+  }
+
+  Future<void> setShakeAnimationEnabled(bool value) async {
+    _shakeAnimationEnabled = value;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(_shakeAnimationKey, value);
     } catch (_) {
       // ignore
     }

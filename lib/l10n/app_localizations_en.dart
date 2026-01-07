@@ -138,6 +138,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shakeToAdd => 'Shake to add transaction';
 
   @override
+  String get shakeAnimation => 'Shake Animation';
+
+  @override
   String get darkMode => 'Dark Mode';
 
   @override

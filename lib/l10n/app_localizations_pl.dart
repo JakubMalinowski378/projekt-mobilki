@@ -138,6 +138,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get shakeToAdd => 'Potrząśnij aby dodać transakcję';
 
   @override
+  String get shakeAnimation => 'Animacja Potrząsania';
+
+  @override
   String get darkMode => 'Tryb Ciemny';
 
   @override

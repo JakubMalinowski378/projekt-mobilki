@@ -43,6 +43,7 @@
   "authenticationFailed": "Uwierzytelnianie nie powiodło się",
   "notifications": "Powiadomienia",
   "shakeToAdd": "Potrząśnij aby dodać transakcję",
+  "shakeAnimation": "Animacja Potrząsania",
   "darkMode": "Tryb Ciemny",
   "theme": "Motyw",
   "themeLight": "Jasny",

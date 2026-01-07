@@ -356,6 +356,12 @@ abstract class AppLocalizations {
   /// **'Shake to add transaction'**
   String get shakeToAdd;
 
+  /// No description provided for @shakeAnimation.
+  ///
+  /// In en, this message translates to:
+  /// **'Shake Animation'**
+  String get shakeAnimation;
+
   /// No description provided for @darkMode.
   ///
   /// In en, this message translates to:

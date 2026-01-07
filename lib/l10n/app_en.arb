@@ -43,6 +43,7 @@
   "authenticationFailed": "Authentication failed",
   "notifications": "Notifications",
   "shakeToAdd": "Shake to add transaction",
+  "shakeAnimation": "Shake Animation",
   "darkMode": "Dark Mode",
   "theme": "Theme",
   "themeLight": "Light",
