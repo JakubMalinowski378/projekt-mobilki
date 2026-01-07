@@ -16,20 +16,22 @@ import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize services
   final database = AppDatabase();
   final biometricService = BiometricService();
   final currencyService = CurrencyService();
   final notificationService = NotificationService();
-  
+
   await notificationService.initialize();
-  
-  runApp(MyApp(
-    database: database,
-    biometricService: biometricService,
-    currencyService: currencyService,
-  ));
+
+  runApp(
+    MyApp(
+      database: database,
+      biometricService: biometricService,
+      currencyService: currencyService,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -48,21 +50,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => TransactionProvider(database),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => CategoryProvider(database),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => StatisticsProvider(database),
-        ),
+        ChangeNotifierProvider(create: (_) => TransactionProvider(database)),
+        ChangeNotifierProvider(create: (_) => CategoryProvider(database)),
+        ChangeNotifierProvider(create: (_) => StatisticsProvider(database)),
         ChangeNotifierProvider(
           create: (_) => CurrencyProvider(database, currencyService),
         ),
-        ChangeNotifierProvider(
-          create: (_) => SettingsProvider(),
-        ),
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
         Provider.value(value: biometricService),
       ],
       child: Consumer<SettingsProvider>(
@@ -83,7 +77,7 @@ class MyApp extends StatelessWidget {
             ),
             useMaterial3: true,
           ),
-          themeMode: settings.isDarkModeOverride ? ThemeMode.dark : ThemeMode.system,
+          themeMode: settings.themeMode,
           locale: settings.locale,
           localizationsDelegates: const [
             AppLocalizations.delegate,
@@ -91,10 +85,7 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: const [
-            Locale('en'),
-            Locale('pl'),
-          ],
+          supportedLocales: const [Locale('en'), Locale('pl')],
           home: AuthScreen(biometricService: biometricService),
         ),
       ),

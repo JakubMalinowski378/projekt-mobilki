@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsProvider with ChangeNotifier {
-  static const _darkOverrideKey = 'dark_mode_override';
+  static const _themeModeKey = 'theme_mode';
   static const _localeKey = 'locale';
   static const _currencyKey = 'target_currency';
   static const _notificationsKey = 'notifications_enabled';
 
-  bool _isDarkModeOverride = false;
-  bool get isDarkModeOverride => _isDarkModeOverride;
+  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode get themeMode => _themeMode;
 
   Locale? _locale;
   Locale? get locale => _locale;
@@ -26,8 +26,14 @@ class SettingsProvider with ChangeNotifier {
   Future<void> _load() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      _isDarkModeOverride = prefs.getBool(_darkOverrideKey) ?? false;
-      
+      final themeModeString = prefs.getString(_themeModeKey);
+      if (themeModeString != null) {
+        _themeMode = ThemeMode.values.firstWhere(
+          (mode) => mode.toString() == themeModeString,
+          orElse: () => ThemeMode.system,
+        );
+      }
+
       final localeCode = prefs.getString(_localeKey);
       if (localeCode != null) {
         _locale = Locale(localeCode);
@@ -35,18 +41,18 @@ class SettingsProvider with ChangeNotifier {
 
       _targetCurrency = prefs.getString(_currencyKey) ?? 'PLN';
       _notificationsEnabled = prefs.getBool(_notificationsKey) ?? true;
-      
+
       notifyListeners();
     } catch (_) {
       // ignore errors and keep default
     }
   }
 
-  Future<void> setDarkModeOverride(bool value) async {
-    _isDarkModeOverride = value;
+  Future<void> setThemeMode(ThemeMode mode) async {
+    _themeMode = mode;
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool(_darkOverrideKey, value);
+      await prefs.setString(_themeModeKey, mode.toString());
     } catch (_) {
       // ignore
     }

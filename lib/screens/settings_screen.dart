@@ -9,21 +9,42 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.settings),
-      ),
+      appBar: AppBar(title: Text(l10n.settings)),
       body: ListView(
         children: [
-          SwitchListTile(
-            secondary: const Icon(Icons.dark_mode),
-            title: Text(l10n.darkMode),
-            subtitle: Consumer<SettingsProvider>(
-              builder: (context, settings, _) => Text(settings.isDarkModeOverride ? 'Forced dark' : 'System default'),
+          Consumer<SettingsProvider>(
+            builder: (context, settings, _) => ListTile(
+              leading: const Icon(Icons.brightness_6),
+              title: Text(l10n.theme),
+              trailing: DropdownButton<ThemeMode>(
+                value: settings.themeMode,
+                underline: Container(),
+                items: [
+                  DropdownMenuItem(
+                    value: ThemeMode.light,
+                    child: Text(l10n.themeLight),
+                  ),
+                  DropdownMenuItem(
+                    value: ThemeMode.dark,
+                    child: Text(l10n.themeDark),
+                  ),
+                  DropdownMenuItem(
+                    value: ThemeMode.system,
+                    child: Text(l10n.themeSystem),
+                  ),
+                ],
+                onChanged: (ThemeMode? newMode) {
+                  if (newMode != null) {
+                    Provider.of<SettingsProvider>(
+                      context,
+                      listen: false,
+                    ).setThemeMode(newMode);
+                  }
+                },
+              ),
             ),
-            value: Provider.of<SettingsProvider>(context).isDarkModeOverride,
-            onChanged: (value) => Provider.of<SettingsProvider>(context, listen: false).setDarkModeOverride(value),
           ),
           Consumer<SettingsProvider>(
             builder: (context, settings, _) => ListTile(
@@ -33,21 +54,15 @@ class SettingsScreen extends StatelessWidget {
                 value: settings.locale,
                 underline: Container(),
                 items: const [
-                  DropdownMenuItem(
-                    value: null,
-                    child: Text('System'),
-                  ),
-                  DropdownMenuItem(
-                    value: Locale('pl'),
-                    child: Text('Polski'),
-                  ),
-                  DropdownMenuItem(
-                    value: Locale('en'),
-                    child: Text('English'),
-                  ),
+                  DropdownMenuItem(value: null, child: Text('System')),
+                  DropdownMenuItem(value: Locale('pl'), child: Text('Polski')),
+                  DropdownMenuItem(value: Locale('en'), child: Text('English')),
                 ],
                 onChanged: (Locale? newLocale) {
-                  Provider.of<SettingsProvider>(context, listen: false).setLocale(newLocale);
+                  Provider.of<SettingsProvider>(
+                    context,
+                    listen: false,
+                  ).setLocale(newLocale);
                 },
               ),
             ),
@@ -60,15 +75,19 @@ class SettingsScreen extends StatelessWidget {
                 value: settings.targetCurrency,
                 underline: Container(),
                 items: ['PLN', 'USD', 'EUR', 'GBP', 'JPY']
-                    .map((currency) => DropdownMenuItem(
-                          value: currency,
-                          child: Text(currency),
-                        ))
+                    .map(
+                      (currency) => DropdownMenuItem(
+                        value: currency,
+                        child: Text(currency),
+                      ),
+                    )
                     .toList(),
                 onChanged: (String? newCurrency) {
                   if (newCurrency != null) {
-                    Provider.of<SettingsProvider>(context, listen: false)
-                        .setTargetCurrency(newCurrency);
+                    Provider.of<SettingsProvider>(
+                      context,
+                      listen: false,
+                    ).setTargetCurrency(newCurrency);
                   }
                 },
               ),

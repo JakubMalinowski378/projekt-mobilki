@@ -141,6 +141,18 @@ class AppLocalizationsPl extends AppLocalizations {
   String get darkMode => 'Tryb Ciemny';
 
   @override
+  String get theme => 'Motyw';
+
+  @override
+  String get themeLight => 'Jasny';
+
+  @override
+  String get themeDark => 'Ciemny';
+
+  @override
+  String get themeSystem => 'Systemowy';
+
+  @override
   String get language => 'Język';
 
   @override
