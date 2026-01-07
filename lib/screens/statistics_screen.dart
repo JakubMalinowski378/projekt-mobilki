@@ -324,44 +324,56 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                     stat.originalAmounts.length == 1 &&
                     stat.originalAmounts.keys.first == targetCurrency;
 
-                return ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: CircleAvatar(
-                    backgroundColor: colors[index],
-                    radius: 8,
-                  ),
-                  title: Text(
-                    getLocalizedCategoryName(context, stat.categoryName),
-                  ),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      if (allInTargetCurrency)
-                        Text(
-                          '${stat.total.toStringAsFixed(2)} $targetCurrency',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      else ...[
-                        ...stat.originalAmounts.entries.map(
-                          (e) => Text(
-                            '${e.value.toStringAsFixed(2)} ${e.key}',
-                            style: const TextStyle(fontSize: 12),
-                          ),
+                return ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 56),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: CircleAvatar(
+                      backgroundColor: colors[index],
+                      radius: 8,
+                    ),
+                    title: Text(
+                      getLocalizedCategoryName(context, stat.categoryName),
+                    ),
+                    trailing: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 150, maxHeight: 70),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (allInTargetCurrency)
+                              Text(
+                                '${stat.total.toStringAsFixed(2)} $targetCurrency',
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            else ...[
+                              ...stat.originalAmounts.entries.map(
+                                (e) => Text(
+                                  '${e.value.toStringAsFixed(2)} ${e.key}',
+                                  style: const TextStyle(fontSize: 12),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Text(
+                                '≈ ${stat.total.toStringAsFixed(2)} $targetCurrency',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                            Text(
+                              '${percentage.toStringAsFixed(1)}%',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
                         ),
-                        Text(
-                          '≈ ${stat.total.toStringAsFixed(2)} $targetCurrency',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                      Text(
-                        '${percentage.toStringAsFixed(1)}%',
-                        style: Theme.of(context).textTheme.bodySmall,
                       ),
-                    ],
+                    ),
                   ),
                 );
               },
