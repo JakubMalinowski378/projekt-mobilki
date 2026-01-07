@@ -156,6 +156,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'Language';
 
   @override
+  String get currencyRates => 'Currency Rates';
+
+  @override
+  String get updateRates => 'Update Rates';
+
+  @override
+  String get noRatesAvailable => 'No rates available';
+
+  @override
+  String get lastUpdated => 'Last updated';
+
+  @override
+  String get baseCurrency => 'Base Currency';
+
+  @override
+  String get yourBaseCurrency => 'Your base currency';
+
+  @override
+  String get searchCurrency => 'Search currency...';
+
+  @override
   String get catSalary => 'Salary';
 
   @override

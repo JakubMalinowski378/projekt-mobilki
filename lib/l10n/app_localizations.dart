@@ -392,6 +392,48 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get language;
 
+  /// No description provided for @currencyRates.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency Rates'**
+  String get currencyRates;
+
+  /// No description provided for @updateRates.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Rates'**
+  String get updateRates;
+
+  /// No description provided for @noRatesAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No rates available'**
+  String get noRatesAvailable;
+
+  /// No description provided for @lastUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated'**
+  String get lastUpdated;
+
+  /// No description provided for @baseCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Base Currency'**
+  String get baseCurrency;
+
+  /// No description provided for @yourBaseCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Your base currency'**
+  String get yourBaseCurrency;
+
+  /// No description provided for @searchCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Search currency...'**
+  String get searchCurrency;
+
   /// No description provided for @catSalary.
   ///
   /// In en, this message translates to:

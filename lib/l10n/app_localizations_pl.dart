@@ -156,6 +156,27 @@ class AppLocalizationsPl extends AppLocalizations {
   String get language => 'Język';
 
   @override
+  String get currencyRates => 'Kursy Walut';
+
+  @override
+  String get updateRates => 'Aktualizuj Kursy';
+
+  @override
+  String get noRatesAvailable => 'Brak dostępnych kursów';
+
+  @override
+  String get lastUpdated => 'Ostatnia aktualizacja';
+
+  @override
+  String get baseCurrency => 'Waluta Bazowa';
+
+  @override
+  String get yourBaseCurrency => 'Twoja waluta bazowa';
+
+  @override
+  String get searchCurrency => 'Szukaj waluty...';
+
+  @override
   String get catSalary => 'Wynagrodzenie';
 
   @override

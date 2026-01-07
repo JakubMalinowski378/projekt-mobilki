@@ -6,6 +6,7 @@ import 'dart:math';
 import 'transactions_screen.dart';
 import 'statistics_screen.dart';
 import 'categories_screen.dart';
+import 'currency_rates_screen.dart';
 import 'settings_screen.dart';
 import 'transaction_form_screen.dart';
 import '../l10n/app_localizations.dart';
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     TransactionsScreen(),
     StatisticsScreen(),
     CategoriesScreen(),
+    CurrencyRatesScreen(),
     SettingsScreen(),
   ];
 
@@ -44,12 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void _initAccelerometer() {
     _accelerometerSubscription = accelerometerEventStream().listen((event) {
       final now = DateTime.now();
-      if (_lastShake != null && now.difference(_lastShake!).inMilliseconds < 1000) {
+      if (_lastShake != null &&
+          now.difference(_lastShake!).inMilliseconds < 1000) {
         return;
       }
 
-      final gForce = sqrt(event.x * event.x + event.y * event.y + event.z * event.z);
-      
+      final gForce = sqrt(
+        event.x * event.x + event.y * event.y + event.z * event.z,
+      );
+
       if (gForce > 20) {
         _lastShake = now;
         _onShake();
@@ -68,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (rotationMagnitude > 5.0 && !_isShaking) {
         _isShaking = true;
         _triggerMoneyAnimation();
-        
+
         // Reset shake flag after cooldown
         Future.delayed(const Duration(milliseconds: 2000), () {
           _isShaking = false;
@@ -85,11 +90,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onShake() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => const TransactionFormScreen(),
-      ),
-    );
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const TransactionFormScreen()));
   }
 
   @override
@@ -103,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: NavigationBar(
@@ -123,6 +126,10 @@ class _HomeScreenState extends State<HomeScreen> {
           NavigationDestination(
             icon: const Icon(Icons.category),
             label: l10n.categories,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.currency_exchange),
+            label: l10n.currencyRates,
           ),
           NavigationDestination(
             icon: const Icon(Icons.settings),
