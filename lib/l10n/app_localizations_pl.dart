@@ -218,4 +218,40 @@ class AppLocalizationsPl extends AppLocalizations {
   ) {
     return '$type: $category - $amount $currency';
   }
+
+  @override
+  String get home => 'Główna';
+
+  @override
+  String get currentBalance => 'Aktualny bilans';
+
+  @override
+  String get expenses => 'Wydatki';
+
+  @override
+  String get quickActions => 'Szybkie akcje';
+
+  @override
+  String get addIncome => 'Dodaj przychód';
+
+  @override
+  String get addExpense => 'Dodaj wydatek';
+
+  @override
+  String get recentTransactions => 'Ostatnie transakcje';
+
+  @override
+  String get seeAll => 'Zobacz wszystkie';
+
+  @override
+  String get noTransactions => 'Brak transakcji';
+
+  @override
+  String get noDescription => 'Brak opisu';
+
+  @override
+  String get thisMonth => 'Ten miesiąc';
+
+  @override
+  String get noDataAvailable => 'Brak danych';
 }

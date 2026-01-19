@@ -67,5 +67,17 @@
   "catBillsUtilities": "Rachunki",
   "catHealthcare": "Zdrowie",
   "transactionAdded": "Dodano transakcję",
-  "newTransaction": "{type}: {category} - {amount} {currency}"
+  "newTransaction": "{type}: {category} - {amount} {currency}",
+  "home": "Główna",
+  "currentBalance": "Aktualny bilans",
+  "expenses": "Wydatki",
+  "quickActions": "Szybkie akcje",
+  "addIncome": "Dodaj przychód",
+  "addExpense": "Dodaj wydatek",
+  "recentTransactions": "Ostatnie transakcje",
+  "seeAll": "Zobacz wszystkie",
+  "noTransactions": "Brak transakcji",
+  "noDescription": "Brak opisu",
+  "thisMonth": "Ten miesiąc",
+  "noDataAvailable": "Brak danych"
 }

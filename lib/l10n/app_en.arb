@@ -67,5 +67,17 @@
   "catBillsUtilities": "Bills & Utilities",
   "catHealthcare": "Healthcare",
   "transactionAdded": "Transaction Added",
-  "newTransaction": "{type}: {category} - {amount} {currency}"
+  "newTransaction": "{type}: {category} - {amount} {currency}",
+  "home": "Home",
+  "currentBalance": "Current Balance",
+  "expenses": "Expenses",
+  "quickActions": "Quick Actions",
+  "addIncome": "Add Income",
+  "addExpense": "Add Expense",
+  "recentTransactions": "Recent Transactions",
+  "seeAll": "See All",
+  "noTransactions": "No transactions yet",
+  "noDescription": "No description",
+  "thisMonth": "This Month",
+  "noDataAvailable": "No data available"
 }

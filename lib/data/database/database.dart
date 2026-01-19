@@ -19,12 +19,17 @@ class AppDatabase extends _$AppDatabase {
   int get schemaVersion => 1;
 
   @override
-  MigrationStrategy get migration => MigrationStrategy(
-        onCreate: (Migrator m) async {
-          await m.createAll();
-          await _insertDefaultCategories();
-        },
-      );
+  MigrationStrategy get migration {
+    return MigrationStrategy(
+      onCreate: (Migrator m) async {
+        await m.createAll();
+        await _insertDefaultCategories();
+      },
+      onUpgrade: (Migrator m, int from, int to) async {
+        // Add migration logic here when schema version changes
+      },
+    );
+  }
 
   Future<void> _insertDefaultCategories() async {
     await batch((batch) {

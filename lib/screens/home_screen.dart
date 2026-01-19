@@ -4,7 +4,7 @@ import 'package:sensors_plus/sensors_plus.dart';
 import 'dart:async';
 import 'dart:math';
 
-import 'transactions_screen.dart';
+import 'dashboard_screen.dart';
 import 'statistics_screen.dart';
 import 'categories_screen.dart';
 import 'currency_rates_screen.dart';
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final AudioService _audioService = AudioService();
 
   final List<Widget> _screens = const [
-    TransactionsScreen(),
+    DashboardScreen(),
     StatisticsScreen(),
     CategoriesScreen(),
     CurrencyRatesScreen(),
@@ -94,10 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() => _currentIndex = index);
         },
         destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.receipt_long),
-            label: l10n.transactions,
-          ),
+          NavigationDestination(icon: const Icon(Icons.home), label: l10n.home),
           NavigationDestination(
             icon: const Icon(Icons.bar_chart),
             label: l10n.statistics,

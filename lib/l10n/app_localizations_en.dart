@@ -218,4 +218,40 @@ class AppLocalizationsEn extends AppLocalizations {
   ) {
     return '$type: $category - $amount $currency';
   }
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get currentBalance => 'Current Balance';
+
+  @override
+  String get expenses => 'Expenses';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get addIncome => 'Add Income';
+
+  @override
+  String get addExpense => 'Add Expense';
+
+  @override
+  String get recentTransactions => 'Recent Transactions';
+
+  @override
+  String get seeAll => 'See All';
+
+  @override
+  String get noTransactions => 'No transactions yet';
+
+  @override
+  String get noDescription => 'No description';
+
+  @override
+  String get thisMonth => 'This Month';
+
+  @override
+  String get noDataAvailable => 'No data available';
 }

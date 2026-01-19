@@ -16,8 +16,9 @@ import '../utils/category_utils.dart';
 
 class TransactionFormScreen extends StatefulWidget {
   final Transaction? transaction;
+  final TransactionType? initialType;
 
-  const TransactionFormScreen({super.key, this.transaction});
+  const TransactionFormScreen({super.key, this.transaction, this.initialType});
 
   @override
   State<TransactionFormScreen> createState() => _TransactionFormScreenState();
@@ -27,7 +28,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   final _formKey = GlobalKey<FormState>();
   final _amountController = TextEditingController();
   final _descriptionController = TextEditingController();
-  
+
   TransactionType _type = TransactionType.expense;
   int? _selectedCategoryId;
   DateTime _selectedDate = DateTime.now();
@@ -46,6 +47,8 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
       _selectedCategoryId = t.categoryId;
       _selectedDate = t.date;
       _selectedCurrency = t.currency;
+    } else if (widget.initialType != null) {
+      _type = widget.initialType!;
     }
   }
 
@@ -71,9 +74,9 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   Future<void> _saveTransaction() async {
     if (!_formKey.currentState!.validate()) return;
     if (_selectedCategoryId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select a category')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Please select a category')));
       return;
     }
 
@@ -97,13 +100,17 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
       // Trigger notification if enabled
       final settingsProvider = context.read<SettingsProvider>();
       if (settingsProvider.notificationsEnabled && mounted) {
-        final category = context.read<CategoryProvider>().categories
+        final category = context
+            .read<CategoryProvider>()
+            .categories
             .firstWhere((c) => c.id == _selectedCategoryId)
             .name;
-        
+
         final l10n = AppLocalizations.of(context)!;
-        final typeStr = _type == TransactionType.income ? l10n.income : l10n.expense;
-        
+        final typeStr = _type == TransactionType.income
+            ? l10n.income
+            : l10n.expense;
+
         await NotificationService().showTransactionNotification(
           title: l10n.transactionAdded,
           body: l10n.newTransaction(
@@ -137,7 +144,9 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Delete Transaction'),
-        content: const Text('Are you sure you want to delete this transaction?'),
+        content: const Text(
+          'Are you sure you want to delete this transaction?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -162,12 +171,14 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.transaction == null
-            ? l10n.addTransaction
-            : l10n.editTransaction),
+        title: Text(
+          widget.transaction == null
+              ? l10n.addTransaction
+              : l10n.editTransaction,
+        ),
         actions: [
           if (widget.transaction != null)
             IconButton(
@@ -210,7 +221,9 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
                 border: const OutlineInputBorder(),
                 prefixIcon: const Icon(Icons.attach_money),
               ),
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
               ],
@@ -233,10 +246,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
                 prefixIcon: const Icon(Icons.currency_exchange),
               ),
               items: _currencies.map((currency) {
-                return DropdownMenuItem(
-                  value: currency,
-                  child: Text(currency),
-                );
+                return DropdownMenuItem(value: currency, child: Text(currency));
               }).toList(),
               onChanged: (value) {
                 setState(() => _selectedCurrency = value!);
@@ -246,7 +256,7 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
             Consumer<CategoryProvider>(
               builder: (context, categoryProvider, _) {
                 final categories = categoryProvider.getCategoriesByType(_type);
-                
+
                 return DropdownButtonFormField<int>(
                   initialValue: _selectedCategoryId,
                   decoration: InputDecoration(
@@ -257,7 +267,9 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
                   items: categories.map((category) {
                     return DropdownMenuItem(
                       value: category.id,
-                      child: Text(getLocalizedCategoryName(context, category.name)),
+                      child: Text(
+                        getLocalizedCategoryName(context, category.name),
+                      ),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -277,7 +289,11 @@ class _TransactionFormScreenState extends State<TransactionFormScreen> {
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.calendar_today),
               title: Text(l10n.date),
-              subtitle: Text(DateFormat.yMMMd(Localizations.localeOf(context).toString()).format(_selectedDate)),
+              subtitle: Text(
+                DateFormat.yMMMd(
+                  Localizations.localeOf(context).toString(),
+                ).format(_selectedDate),
+              ),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => _selectDate(context),
             ),

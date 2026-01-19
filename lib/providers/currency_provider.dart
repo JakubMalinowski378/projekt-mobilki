@@ -45,7 +45,10 @@ class CurrencyProvider extends ChangeNotifier {
 
   Future<double> convert(double amount, String from, String to) async {
     if (_rates.isEmpty) {
-      await updateRates();
+      // Schedule update after the current frame to avoid calling notifyListeners during build
+      Future.microtask(() => updateRates());
+      // Return the unconverted amount if rates aren't loaded yet
+      return amount;
     }
     return await _currencyService.convertCurrency(amount, from, to, _rates);
   }
