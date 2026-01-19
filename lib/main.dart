@@ -70,6 +70,9 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.light,
             ),
             useMaterial3: true,
+            appBarTheme: const AppBarTheme(
+              centerTitle: true,
+            ),
           ),
           darkTheme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
@@ -77,6 +80,9 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.dark,
             ),
             useMaterial3: true,
+            appBarTheme: const AppBarTheme(
+              centerTitle: true,
+            ),
           ),
           themeMode: settings.themeMode,
           locale: settings.locale,

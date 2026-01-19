@@ -401,7 +401,7 @@ abstract class AppLocalizations {
   /// No description provided for @currencyRates.
   ///
   /// In en, this message translates to:
-  /// **'Currency Rates'**
+  /// **'Rates'**
   String get currencyRates;
 
   /// No description provided for @updateRates.

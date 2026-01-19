@@ -50,6 +50,7 @@ class _CurrencyRatesScreenState extends State<CurrencyRatesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.currencyRates),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),

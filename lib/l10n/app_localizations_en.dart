@@ -159,7 +159,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get language => 'Language';
 
   @override
-  String get currencyRates => 'Currency Rates';
+  String get currencyRates => 'Rates';
 
   @override
   String get updateRates => 'Update Rates';
